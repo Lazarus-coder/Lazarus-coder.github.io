@@ -13,11 +13,11 @@ This site is where I dump thoughts, notes, experiments, writing attempts, and th
 
 ### More Information
 
-I’m interested in NLP, large language models, semantics, writing systems, comparative literature, human behavior, and why人生会经常按我意料之外的方向发展。
+I’m interested in NLP, large language models, semantics, comparative literature, human behavior, and why 人生会经常按我意料之外的方向发展。
 
-I like fitness, cooking, long-form writing, and designing small personal systems that make chaotic life feel稍微有点秩序。
+I like fitness, cooking, long-form writing, and designing small personal systems that make chaotic life feel 稍微有点秩序。
 
-未来想做和 LLM、语言工程、人机界面或 computational humanities 相关的工作。
+未来想做和 LLM、语言工程相关的脏活累活。
 
 ### Contact Me
 
