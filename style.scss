@@ -267,6 +267,15 @@ nav {
   letter-spacing: 0.1px;   /* 稍微给文字呼吸 */
 }
 
+.post-content {
+  max-width: 760px;
+  margin: auto;
+}
+
+.post-content p {
+  white-space: pre-line; 
+}
+
   .comments {
     margin-top: 10px;
   }
