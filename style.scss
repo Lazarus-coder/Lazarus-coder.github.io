@@ -260,6 +260,12 @@ nav {
     font-size: 22px;
     font-style: italic;
   }
+	
+.post-content p {
+  margin-bottom: 1.4rem;   /* 段落留白，像散文 */
+  line-height: 1.7;        /* 易读 */
+  letter-spacing: 0.1px;   /* 稍微给文字呼吸 */
+}
 
   .comments {
     margin-top: 10px;
