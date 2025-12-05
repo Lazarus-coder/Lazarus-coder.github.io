@@ -251,40 +251,64 @@ nav {
   border-bottom: none;
 }
 
+//
+// .post
+//
+
 .post {
+
+  /* --- Blockquote 文学化 --- */
   blockquote {
     margin: 1.8em .8em;
-    border-left: 2px solid $gray;
     padding: 0.1em 1em;
+    border-left: 3px solid $gray;
     color: $gray;
-    font-size: 22px;
+    font-size: 20px;
     font-style: italic;
-  }
-	
-.post-content p {
-  margin-bottom: 1.4rem;   /* 段落留白，像散文 */
-  line-height: 1.7;        /* 易读 */
-  letter-spacing: 0.1px;   /* 稍微给文字呼吸 */
-}
-
-.post-content {
-  max-width: 760px;
-  margin: auto;
-}
-
-.post-content p {
-  white-space: pre-line; 
-}
-
-  .comments {
-    margin-top: 10px;
+    line-height: 1.6;
   }
 
+  /* --- 让“阅读全文”保持简洁 --- */
   .read-more {
     text-transform: uppercase;
     font-size: 15px;
   }
+
+  .comments {
+    margin-top: 10px;
+  }
 }
+
+/* --- 文章内容区: 这是关键!!! --- */
+.post-content {
+  max-width: 760px;
+  margin: auto;
+  line-height: 1.7;
+  font-size: 18px;
+  letter-spacing: 0.1px;
+
+  /* 让换行按 Markdown 原意处理 */
+  white-space: pre-line;
+
+  /* 段落留白 */
+  p {
+    margin-bottom: 1.4rem;
+  }
+}
+
+/* --- 图片不要太大，不要贴边 --- */
+.post-content img {
+  margin: 1.4rem auto;
+  display: block;
+  max-width: 100%;
+}
+
+/* --- 列表优化 --- */
+.post-content ul, .post-content ol {
+  margin: 1.2rem 0 1.2rem 1.3rem;
+  line-height: 1.6;
+}
+
 
 .wrapper-footer {
   margin-top: 50px;
