@@ -1,27 +1,18 @@
 ---
 layout: page
-title: About
+title: about
 permalink: /about/
 ---
 
-Hi, I’m Ilya (Ao Jiang) — born in Xinjiang, raised on a diet of wind, dust, and existential questions, now based in Seattle trying to survive a Computational Linguistics master’s degree at the University of Washington.
+I work on machines that handle language — NLP, large language models, and the unglamorous, load-bearing parts of language engineering. Born in Xinjiang, raised on a diet of wind, dust, and existential questions; now I write code full-time and prose the rest of the time.
 
-My academic path is a strange mix: Software Engineering & English in undergrad, now CLMS at UW, where I spend half my time implementing NLP models and 另一半怀疑人生。  
-I’m equally comfortable discussing syntax trees, language models, or 人类命运的荒诞本质 — usually all in the same conversation。
+This site is where notes, experiments, and essays that don't fit anywhere else drift to rest.
 
-This site is where I dump thoughts, notes, experiments, writing attempts, and things that don’t fit anywhere else.
-
-### More Information
-
-I’m interested in NLP, large language models, semantics, comparative literature, human behavior, and why 人生会经常按我意料之外的方向发展。
-
-I like fitness, cooking, long-form writing, and designing small personal systems that make chaotic life feel 稍微有点秩序。
-
-未来想做和 LLM、语言工程相关的脏活累活。
-
-### Contact Me
-
-If you want to reach out:
-
-**Email:** jao0616@uw.edu  
-**GitHub:** [@Lazarus-coder](https://github.com/Lazarus-coder)
+<dl class="facts mono">
+  <dt>role</dt><dd>AI engineer @ Alibaba Cloud</dd>
+  <dt>focus</dt><dd>NLP · LLMs · computational linguistics</dd>
+  <dt>edu</dt><dd>MS Computational Linguistics, University of Washington<br>BSc English × Software Engineering, Sichuan University</dd>
+  <dt>based</dt><dd>China</dd>
+  <dt>email</dt><dd><a href="mailto:{{ site.email }}">{{ site.email }}</a></dd>
+  <dt>github</dt><dd><a href="https://github.com/{{ site.github_username }}" rel="me">github.com/{{ site.github_username }}</a></dd>
+</dl>

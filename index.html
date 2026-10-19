@@ -2,17 +2,35 @@
 layout: default
 ---
 
-<div class="posts">
+<section class="hero">
+  <div class="container">
+    <p class="prompt"><span class="ps1">$</span> whoami <span class="cursor" aria-hidden="true">▍</span></p>
+    <h1 class="hero-name">Ao Jiang <span class="hero-alias">(Ilya)</span></h1>
+    <p class="hero-role">AI engineer @ Alibaba Cloud — NLP · LLMs · language engineering</p>
+    <p class="hero-edu mono">
+      MS Computational Linguistics, University of Washington<br>
+      BSc English × Software Engineering, Sichuan University
+    </p>
+    <p class="hero-links mono">
+      <a href="https://github.com/{{ site.github_username }}" rel="me">github ↗</a>
+      <a href="mailto:{{ site.email }}">email ↗</a>
+      <a href="{{ '/feed.xml' | relative_url }}">rss ↗</a>
+    </p>
+  </div>
+
+  {% include sea.html hint="move your cursor — the wind follows" %}
+</section>
+
+<section class="posts container" id="writing">
+  <p class="prompt"><span class="ps1">$</span> ls -t ~/posts/<span class="prompt-note">{{ site.posts | size }} posts, newest first</span></p>
+
   {% for post in site.posts %}
-    <article class="post">
-
-      <h1><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a></h1>
-
-      <div class="entry">
-        {{ post.excerpt }}
-      </div>
-
-      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
-    </article>
+  <article class="post-row">
+    <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y-%m-%d" }}</time>
+    <div>
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      <p class="post-excerpt">{{ post.excerpt | strip_html | normalize_whitespace | truncate: 100 }}</p>
+    </div>
+  </article>
   {% endfor %}
-</div>
+</section>
