@@ -43,10 +43,12 @@ jekyll serve
 
 ## The dandelion sea
 
-`assets/js/dandelion.js` draws the homepage canvas: seeds drift over a paper sea in an
-ambient breeze, the cursor acts as a wind gust, and click / tap releases a puff of new
-seeds. It respects `prefers-reduced-motion`, pauses when off-screen, and re-reads its
-palette when the theme changes (`t` or the ◐ button).
+`assets/js/dandelion.js` paints the site's full-viewport background (homepage and 404):
+layered seeds drift over the page — far dust, mid pappus, glowing near seeds, and a few
+huge soft foreground seeds for depth of field. The cursor acts as a wind gust, and
+click / tap releases a puff of new seeds. It respects `prefers-reduced-motion`, pauses
+in hidden tabs, caps device pixel ratio on large screens, and re-reads its palette when
+the theme changes (`t` or the ◐ button).
 
 ## License
 

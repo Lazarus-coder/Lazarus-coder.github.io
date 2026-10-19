@@ -1,9 +1,10 @@
 /* ==========================================================
    the dandelion sea
    ----------------------------------------------------------
-   seeds drift over a paper sea in an ambient breeze.
-   the cursor is a gust: move it to push them around;
-   click / tap releases a puff of new seeds.
+   a full-viewport background for the site: layered dandelion
+   seeds drift over the page in an ambient breeze.
+   the cursor is a gust — move it to push them around;
+   click / tap scatters a puff of new seeds.
    vanilla js, no deps, theme-aware, reduced-motion friendly.
    ========================================================== */
 (function () {
@@ -22,16 +23,18 @@
   var raf = 0;
   var running = false;
   var lastTs = 0;
-  var onScreen = true;
+  var windR = 170;
 
+  // back to front: far dust, mid pappus, near pappus with glow,
+  // and a few huge soft foreground seeds for depth of field
   var LAYERS = [
-    { f: 0.62, size: [2.0, 3.4], alpha: [0.10, 0.22], wind: 0.5, arms: 5, glow: false },
-    { f: 0.26, size: [4.2, 6.6], alpha: [0.16, 0.32], wind: 0.85, arms: 7, glow: false },
-    { f: 0.12, size: [7.5, 12.0], alpha: [0.26, 0.46], wind: 1.3, arms: 8, glow: true }
+    { f: 0.55, size: [1.6, 3.0],  alpha: [0.08, 0.18], wind: 0.45, arms: 5,  glow: false, fore: false },
+    { f: 0.30, size: [4.0, 6.5],  alpha: [0.14, 0.30], wind: 0.85, arms: 7,  glow: false, fore: false },
+    { f: 0.12, size: [7.5, 12.5], alpha: [0.20, 0.36], wind: 1.35, arms: 8,  glow: true,  fore: false },
+    { f: 0.03, size: [26, 46],    alpha: [0.03, 0.06], wind: 2.2,  arms: 11, glow: false, fore: true }
   ];
 
   var pointer = { x: -9999, y: -9999, px: 0, py: 0, vx: 0, vy: 0, t: 0, inside: false };
-  var WIND_R = 150;
 
   // ---- palette -------------------------------------------------------------
 
@@ -82,6 +85,7 @@
       wind: L.wind * rand(0.85, 1.18),
       arms: L.arms,
       glow: L.glow,
+      fore: L.fore,
       layer: layer,
       side: Math.random() < 0.5 ? -1 : 1,
       phase: rand(0, Math.PI * 2),
@@ -94,7 +98,7 @@
   }
 
   function seedCount() {
-    return Math.max(30, Math.min(115, Math.round((W * H) / 5200)));
+    return Math.max(42, Math.min(170, Math.round((W * H) / 6200)));
   }
 
   function populate() {
@@ -102,7 +106,12 @@
     MAX = seedCount();
     for (var i = 0; i < MAX; i++) {
       var r = Math.random();
-      var li = r < LAYERS[0].f ? 0 : (r < LAYERS[0].f + LAYERS[1].f ? 1 : 2);
+      var acc = 0, li = 0;
+      for (var L = 0; L < LAYERS.length; L++) {
+        acc += LAYERS[L].f;
+        if (r < acc) { li = L; break; }
+        li = L;
+      }
       seeds.push(makeSeed(li));
     }
   }
@@ -114,12 +123,14 @@
     pointer.vx *= decay;
     pointer.vy *= decay;
 
+    var swell = 1 + 0.35 * Math.sin(t * 0.05); // slow global breathing of the wind
+
     for (var i = 0; i < seeds.length; i++) {
       var s = seeds[i];
 
       // ambient breeze: gentle rightward drift, vertical wobble
-      var awx = (9 + 5 * Math.sin(t * 0.23 + s.phase)) * s.wind;
-      var awy = 2.4 * Math.sin(t * 0.37 + s.phase * 1.7) * s.wind;
+      var awx = (7 + 4 * Math.sin(t * 0.23 + s.phase)) * s.wind * swell;
+      var awy = 2.0 * Math.sin(t * 0.37 + s.phase * 1.7) * s.wind;
       var k = 1 - Math.exp(-dt * 0.9);
       s.vx += (awx - s.vx) * k;
       s.vy += (awy - s.vy) * k;
@@ -128,7 +139,7 @@
       if (pointer.inside) {
         var dx = s.x - pointer.x, dy = s.y - pointer.y;
         var d2 = dx * dx + dy * dy;
-        var R = WIND_R * (0.7 + s.wind * 0.5);
+        var R = windR * (0.7 + s.wind * 0.5);
         if (d2 < R * R) {
           var d = Math.sqrt(d2) || 0.001;
           var f = 1 - d / R;
@@ -142,13 +153,13 @@
       }
 
       var sp = Math.sqrt(s.vx * s.vx + s.vy * s.vy);
-      if (sp > 750) { s.vx *= 750 / sp; s.vy *= 750 / sp; }
+      if (sp > 650) { s.vx *= 650 / sp; s.vy *= 650 / sp; }
 
       s.x += s.vx * dt;
       s.y += s.vy * dt;
       s.rot += (s.spin + sp * 0.0004 * s.side) * dt;
 
-      var m = 36;
+      var m = 40;
       if (s.x > W + m) s.x = -m;
       else if (s.x < -m) s.x = W + m;
       if (s.y > H + m) s.y = -m;
@@ -199,7 +210,7 @@
     // pappus: a fan of filaments + a stem with the seed pod
     ctx.globalAlpha = a;
     ctx.strokeStyle = pal.ink;
-    ctx.lineWidth = Math.max(0.6, s.size * 0.1);
+    ctx.lineWidth = Math.max(0.6, s.size * (s.fore ? 0.045 : 0.1));
     ctx.beginPath();
     for (var i = 0; i < s.arms; i++) {
       var spread = (i / (s.arms - 1) - 0.5) * 3.5;
@@ -267,12 +278,12 @@
 
   function sync() {
     if (reduced) return;
-    if (onScreen && !document.hidden) start(); else stop();
+    if (!document.hidden) start(); else stop();
   }
 
   // ---- interaction ---------------------------------------------------------
 
-  var hint = canvas.parentNode ? canvas.parentNode.querySelector('.sea-hint') : null;
+  var hint = document.querySelector('.sea-hint');
   var hintOff = false;
 
   if (hint && window.matchMedia('(pointer: coarse)').matches) {
@@ -286,23 +297,20 @@
   }
 
   function onPointerMove(e) {
-    var r = canvas.getBoundingClientRect();
-    var x = e.clientX - r.left;
-    var y = e.clientY - r.top;
     var now = performance.now();
     var dtp = (now - pointer.t) / 1000;
     if (pointer.t && dtp > 0 && dtp < 0.12) {
-      var nvx = (x - pointer.px) / dtp;
-      var nvy = (y - pointer.py) / dtp;
+      var nvx = (e.clientX - pointer.px) / dtp;
+      var nvy = (e.clientY - pointer.py) / dtp;
       var m = Math.sqrt(nvx * nvx + nvy * nvy);
       if (m > 2600) { nvx *= 2600 / m; nvy *= 2600 / m; }
       pointer.vx = pointer.vx * 0.55 + nvx * 0.45;
       pointer.vy = pointer.vy * 0.55 + nvy * 0.45;
     }
-    pointer.px = x;
-    pointer.py = y;
+    pointer.px = e.clientX;
+    pointer.py = e.clientY;
     pointer.t = now;
-    pointer.inside = x > -90 && x < W + 90 && y > -50 && y < H + 50;
+    pointer.inside = e.clientX > -90 && e.clientX < W + 90 && e.clientY > -50 && e.clientY < H + 50;
     if (pointer.inside) hideHint();
   }
 
@@ -328,10 +336,13 @@
     var oldW = W, oldH = H;
     W = nw;
     H = nh;
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var cssArea = W * H;
+    var dprCap = cssArea > 3.2e6 ? 1.25 : (cssArea > 1.9e6 ? 1.5 : 2);
+    dpr = Math.min(window.devicePixelRatio || 1, dprCap);
     canvas.width = Math.round(W * dpr);
     canvas.height = Math.round(H * dpr);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    windR = Math.max(150, Math.min(220, W * 0.15));
     if (oldW > 1 && oldH > 1) {
       for (var i = 0; i < seeds.length; i++) {
         seeds[i].x = (seeds[i].x / oldW) * W;
@@ -351,9 +362,11 @@
   }
 
   window.addEventListener('pointermove', onPointerMove, { passive: true });
-  canvas.addEventListener('pointerdown', function (e) {
-    var r = canvas.getBoundingClientRect();
-    puff(e.clientX - r.left, e.clientY - r.top);
+
+  window.addEventListener('click', function (e) {
+    var t = e.target;
+    if (t && t.closest && t.closest('a, button, input, textarea, select, label')) return;
+    puff(e.clientX, e.clientY);
     hideHint();
   });
 
@@ -363,7 +376,7 @@
     rtimer = window.setTimeout(function () {
       resize();
       populate();
-      if (!running && onScreen && !document.hidden) start();
+      if (!running && !document.hidden) start();
     }, 150);
   });
 
@@ -371,14 +384,6 @@
     readPalette();
     buildGlowSprite();
   });
-
-  if (window.IntersectionObserver) {
-    var io = new IntersectionObserver(function (entries) {
-      onScreen = entries[0].isIntersecting;
-      sync();
-    }, { threshold: 0 });
-    io.observe(canvas);
-  }
 
   document.addEventListener('visibilitychange', sync);
 

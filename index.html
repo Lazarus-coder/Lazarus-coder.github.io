@@ -2,6 +2,8 @@
 layout: default
 ---
 
+{% include sea.html %}
+
 <section class="hero">
   <div class="container">
     <p class="prompt"><span class="ps1">$</span> whoami <span class="cursor" aria-hidden="true">▍</span></p>
@@ -19,7 +21,7 @@ layout: default
     </p>
   </div>
 
-  {% include sea.html hint="move your cursor — the wind follows" %}
+  <p class="sea-hint">move your cursor — the wind follows</p>
 </section>
 
 <section class="posts container" id="writing">

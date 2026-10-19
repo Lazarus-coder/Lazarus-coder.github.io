@@ -209,7 +209,13 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.4em 0; }
 
 /* --- hero ------------------------------------------------ */
 
-.hero { padding-top: 58px; }
+.hero {
+  padding-top: 58px;
+  min-height: calc(100vh - 50px);
+  min-height: calc(100svh - 50px);
+  display: flex;
+  flex-direction: column;
+}
 
 .hero-name {
   margin: 0 0 10px;
@@ -261,46 +267,31 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.4em 0; }
 .hero-links a { color: var(--ink-2); }
 .hero-links a:hover { color: var(--accent); }
 
-/* --- sea -------------------------------------------------- */
+/* --- sea (full-viewport background) ----------------------- */
 
-.sea-wrap {
-  position: relative;
-  height: clamp(190px, 30vh, 300px);
-  margin-top: 46px;
-  overflow: hidden;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: linear-gradient(180deg, transparent 0%, var(--sea-1) 60%, var(--sea-2) 100%);
+.sea-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 42%, var(--sea-1) 76%, var(--sea-2) 100%);
 }
 
-.sea-wrap::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 46%;
-  border-top: 1px solid var(--line-strong);
-  opacity: .6;
-}
-
-#dandelion-sea {
+.sea-bg canvas {
   display: block;
   width: 100%;
   height: 100%;
-  cursor: crosshair;
-  touch-action: pan-y;
 }
 
-@media screen and (max-width: 640px) {
-  #dandelion-sea { cursor: auto; }
+main,
+.footer {
+  position: relative;
+  z-index: 1;
 }
 
 .sea-hint {
-  position: absolute;
-  left: 50%;
-  bottom: 9px;
-  transform: translateX(-50%);
-  margin: 0;
+  margin: auto auto 26px;
+  align-self: center;
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: .03em;
@@ -544,6 +535,14 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.4em 0; }
 .facts dd { margin: 0; color: var(--ink); }
 
 .notfound { padding-top: 8px; }
+
+.notfound-hero {
+  padding-top: 48px;
+  min-height: calc(100vh - 50px);
+  min-height: calc(100svh - 50px);
+  display: flex;
+  flex-direction: column;
+}
 
 .notfound h1 {
   margin: 0 0 12px;
