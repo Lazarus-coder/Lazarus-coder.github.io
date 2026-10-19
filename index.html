@@ -5,20 +5,27 @@ layout: default
 {% include sea.html %}
 
 <section class="hero">
-  <div class="container">
-    <p class="prompt"><span class="ps1">$</span> whoami <span class="cursor" aria-hidden="true">▍</span></p>
-    <h1 class="hero-name">Ao Jiang <span class="hero-alias">(Ilya)</span></h1>
-    <p class="hero-role">NLP · large language models · computational linguistics</p>
-    <p class="hero-edu mono">
-      MS Computational Linguistics, University of Washington<br>
-      BSc English × Software Engineering, Sichuan University
-    </p>
-    <p class="hero-offline">offline — fitness · cooking · long-form writing · small personal systems</p>
-    <p class="hero-links mono">
-      <a href="https://github.com/{{ site.github_username }}" rel="me">github ↗</a>
-      <a href="mailto:{{ site.email }}">email ↗</a>
-      <a href="{{ '/feed.xml' | relative_url }}">rss ↗</a>
-    </p>
+  <div class="container hero-grid">
+    <div class="hero-text">
+      <p class="prompt"><span class="ps1">$</span> whoami <span class="cursor" aria-hidden="true">▍</span></p>
+      <h1 class="hero-name">Ao Jiang <span class="hero-alias">(Ilya)</span></h1>
+      <p class="hero-role">NLP · large language models · computational linguistics</p>
+      <p class="hero-edu mono">
+        MS Computational Linguistics, University of Washington<br>
+        BSc English × Software Engineering, Sichuan University
+      </p>
+      <p class="hero-offline">offline — fitness · cooking · long-form writing · small personal systems</p>
+      <p class="hero-links mono">
+        <a href="https://github.com/{{ site.github_username }}" rel="me">github ↗</a>
+        <a href="mailto:{{ site.email }}">email ↗</a>
+        <a href="{{ '/feed.xml' | relative_url }}">rss ↗</a>
+      </p>
+    </div>
+
+    <figure class="hero-photo">
+      <img src="{{ '/images/me.jpg' | relative_url }}" alt="Ao Jiang in the woods" width="900" height="1200">
+      <figcaption>somewhere in the woods</figcaption>
+    </figure>
   </div>
 
   <p class="sea-hint">move your cursor — the wind follows</p>

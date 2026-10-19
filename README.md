@@ -13,8 +13,9 @@ interactive "dandelion sea" canvas on the homepage.
 ```
 _posts/        essays and notes (markdown; filename = date + slug)
 _layouts/      default / post / page
-_includes/     meta, sea (homepage canvas)
+_includes/     meta, sea (site background canvas)
 assets/js/     dandelion.js — the canvas engine (vanilla, no deps)
+images/        portrait (me.jpg) + generated og card
 style.scss     all styling (design tokens, light/dark)
 ```
 
