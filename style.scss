@@ -241,6 +241,15 @@ hr { border: 0; border-top: 1px solid var(--line); margin: 2.4em 0; }
   color: var(--ink-3);
 }
 
+.hero-offline {
+  margin: 0 0 18px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ink-3);
+}
+
 .hero-links {
   display: flex;
   flex-wrap: wrap;
